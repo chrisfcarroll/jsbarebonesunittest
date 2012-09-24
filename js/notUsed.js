@@ -13,3 +13,19 @@ function getMyName( functionText ) {
     return testName;
 }
 
+function wikiWordToSpacedWord(wikiWord){
+    var result= "";
+    for (var word in wikiWord.split("(?<!(^|[A-Z]))(?=[A-Z])|(?<!^)(?=[A-Z][a-z])")) {
+        result +=word;
+    }
+}
+
+$(function(){
+    new Specification("FunctionsSpecification", {
+        wikiWordToSpacedWordShouldPutSpacesInForCapitals : function(){
+            var result= wikiWordToSpacedWord("wikiWordToSpacedWordShouldPutSpacesInForCapitals");
+            var expected= "Wiki Word To Spaced Word Should Put Spaces In For Capitals";
+            return expected==result;
+        }
+    }).runTests();
+});
