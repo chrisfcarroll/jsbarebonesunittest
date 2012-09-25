@@ -32,6 +32,6 @@ $(function(){
 
 x={
     equalsShouldPassForValueEqualArguments : function(){
-        assertThat( { a : "a"} ).Equals( { a : "a" } );
+        assert( { a : "a"} ).Equals( { a : "a" } );
     }
 };
