@@ -29,3 +29,9 @@ $(function(){
         }
     }).runTests();
 });
+
+x={
+    equalsShouldPassForValueEqualArguments : function(){
+        assertThat( { a : "a"} ).Equals( { a : "a" } );
+    }
+};
