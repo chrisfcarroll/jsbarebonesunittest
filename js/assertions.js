@@ -30,7 +30,7 @@ Assert.prototype.EqualsByPropertyValue = function(expected,msg){
 };
 
 $(function(){
-    new Specification("SpecificationsForPrimitiveAssertionPasses",{
+    new Specification("BasicAssertions_Specifications",{
         isTrueShouldBeTrueForTrue : function(){
             assert(true).IsTrue();
         },
@@ -48,7 +48,7 @@ $(function(){
         }
     }).runTests();
 
-    new Specification("SpecificationsForPrimitiveAssertion_Failures",{
+    new Specification("BasicAssertions_Specifications_ExpectedFails",{
         isTrueShouldNotBeTrueForFalse : function(){
             assert(false).IsTrue();
         },
