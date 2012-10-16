@@ -2,31 +2,35 @@
 Assertions for a test framework
 */
 
-function Assert(actual, assertionGender){
+function assert(actual){return new AssertionBase(actual, true);}
+function assertNot(actual){return new AssertionBase(actual, false);}
+
+function AssertionBase(actual, assertionGender){
     this.actual=actual;
     this.notted=!assertionGender;
-    this.Expected=  assertionGender ? "Expected" : "Did not expect";
+    this.TextExpected=  assertionGender ? "TextExpected" : "Did not expect";
+
+    this.assert = function (result, msg) {
+        if (result == this.notted) { throw msg ; }
+    };
 }
 
-function assert(actual){return new Assert(actual, true);}
-function assertNot(actual){return new Assert(actual, false);}
-
-Assert.prototype.IsTrue = function(msg){
-    if( this.actual == this.notted ){ throw msg||this.Expected + " true.";}
+AssertionBase.prototype.IsTrue = function(msg){
+    var defaultMessage = this.TextExpected + " true.";
+    this.assert(this.actual, msg||defaultMessage);
 };
 
-Assert.prototype.Equals = function(expected,msg){
-    if( (this.actual==expected) == this.notted ){
-        throw msg|| this.Expected + " " + this.actual + " to equal " + expected ;
-    }
+AssertionBase.prototype.Equals = function(expected, msg){
+    var defaultMessage = this.TextExpected + " " + this.actual + " to equal " + expected;
+    this.assert( this.actual == expected, msg || defaultMessage);
 };
 
-Assert.prototype.EqualsByPropertyValue = function(expected,msg){
+AssertionBase.prototype.EqualsByPropertyValue = function(expected,msg){
     var actualValue =  JSON.stringify( this.actual );
     var expectedValue = JSON.stringify( expected );
-    if( (actualValue == expectedValue) == this.notted ){
-        throw msg|| this.Expected + " " + actualValue + " to equal " + expectedValue + " by value";
-    }
+    this.assert( actualValue == expectedValue,
+        msg|| this.TextExpected + " " + actualValue + " to equal " + expectedValue + " by value"
+    );
 };
 
 $(function(){
